@@ -1,0 +1,45 @@
+@import "variables";
+
+#searchArea{
+    background-color: $searchBackground;
+    display: grid;
+    place-items: center;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 25%;
+    margin: auto;
+
+    border-radius: 10px;
+}
+
+#searchResult{
+    display: grid;
+    place-items: center;
+    width: $searchAreaWidth;
+}
+
+#searchbox{
+    color: $searchBoxTextColor;
+    width: $searchAreaWidth;
+}
+
+.resultName{
+    color: $searchNameTextColor;
+    font-size: 25px;
+    padding-bottom: 5px;
+    text-align: left;
+}
+
+.resultDescription{
+    text-align: left;
+}
+
+.searchItem{
+    background-color: $searchItemBackground;
+    width: $searchItemWidth;
+    margin-top: 20px;
+    padding: 10px;
+
+    border-radius: 10px;
+}

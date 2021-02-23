@@ -1,0 +1,40 @@
+@import "variables";
+
+/* Stil för alla sidor */
+
+/* Importera fonter från font-filer */
+@font-face{
+    font-family: comfortaa-regular;
+    src: url(../font/Comfortaa-Regular.ttf);
+}
+@font-face{
+    font-family: comfortaa-bold;
+    src: url(../font/Comfortaa-Bold.ttf);
+}
+
+/* Stil på alla element */
+*{
+    margin: 0;
+    font-family: comfortaa-bold;
+    color: white;
+    text-align: center;
+}
+
+/* Universell bakgrundsfärg */
+body{
+    background-color: $colorBase;
+}
+
+/* En global klass för att element som ska använda gradient */
+.gradient{
+    border-radius: 30px;
+    background-image: linear-gradient(-135deg, #c700ffff, #6475fe, #00e9ffff);
+}
+
+/* Global stil på titlar */
+.title{
+    margin: auto;
+    background-color: rgba(0,0,0,0.9);
+    border-radius: 10px;
+    padding: 10px;
+}
