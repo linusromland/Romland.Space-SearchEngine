@@ -38,10 +38,12 @@ app.get("/insert", (req, res) =>
 );
 
 app.post("/newLink", (req, res) => {
-  if (req.body.auth == fs.readFileSync("security/security.txt")) {
-    dbModule.saveToDB(createLink(req.body.name, req.body.link, req.body.desc));
+  if(dbModule.saveToDB(createLink(req.body.name, req.body.link, req.body.desc))){
+    res.send(201);
+  }else{
+    res.send(500)
   }
-  res.redirect("/insert");
+  
 });
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
@@ -82,11 +84,12 @@ function connectToMongo(dbName, connectURL) {
   }
 }
 
-function createLink(nameIN, linkIN, descIN){
+function createLink(nameIN, linkIN, descIN) {
   let tmp = new Link({
     name: nameIN,
     link: linkIN,
-    desc: descIN
+    desc: descIN,
+    verified: false
   });
   return tmp;
 };

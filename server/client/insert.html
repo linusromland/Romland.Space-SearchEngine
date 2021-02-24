@@ -1,18 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Romland.Space Link Insert</title>
-  </head>
 
-  <body>
-    <form method="POST" action="/newLink">
-      <input type="url" name="link" placeholder="URL" /><br />
-      <input type="text" name="name" placeholder="Name" /><br />
-      <input type="text" name="desc" placeholder="Description" /><br />
-      <input type="password" name="auth" placeholder="authKey" /><br />
-      <input type="submit" /><br />
-    </form>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add new Link</title>
+
+  <!--Bootstrap v4.5.2-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  <style>
+    html {
+      background-color: #56baed;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      height: 100vh;
+    }
+
+    a {
+      color: #92badd;
+      display: inline-block;
+      text-decoration: none;
+      font-weight: 400;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      display: inline-block;
+      margin: 40px 8px 10px 8px;
+      color: #cccccc;
+    }
+
+    .wrapper {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      min-height: 100%;
+      padding: 20px;
+    }
+
+    #formContent {
+      -webkit-border-radius: 10px 10px 10px 10px;
+      border-radius: 10px 10px 10px 10px;
+      background: #fff;
+      padding: 30px;
+      width: 90%;
+      max-width: 450px;
+      position: relative;
+      -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+      box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    #formFooter {
+      background-color: #f6f6f6;
+      border-top: 1px solid #dce8f1;
+      padding: 25px;
+      text-align: center;
+      -webkit-border-radius: 0 0 10px 10px;
+      border-radius: 0 0 10px 10px;
+    }
+
+    input {
+      margin: 2%;
+    }
+  </style>
+  <script>
+    function registerUser() {
+      let link = document.getElementById("password").value;
+      let name = document.getElementById("passwordConfirm").value;
+      let desc = document.getElementById("errorText");
+      let request = new XMLHttpRequest();
+      request.open("POST", "/newLink", true);
+      request.setRequestHeader(
+        "Content-type",
+        "application/x-www-form-urlencoded"
+      );
+      request.send(`link=${link}&name=${name}&desc=${desc}`);
+      request.onreadystatechange = function () {
+        if (request.status == 500) {
+          errorText.innerHTML = "Error occured! Link not added!";
+        } else if (request.status == 201) {
+          window.location = "/";
+        }
+      };
+
+    }
+  </script>
+</head>
+
+<body>
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <div class="fadeIn first">
+        <h1>Add Link</h1>
+      </div>
+      <form onsubmit="registerUser();return false;">
+        <input type="text" placeholder="URL" name="link" id="link" />
+        <br />
+        <input type="text" placeholder="Name" name="name" id="name" />
+        <br />
+        <input type="text" placeholder="Description" name="desc" id="desc" />
+        <p id="errorText">
+          <br />
+        </p>
+        <input type="submit" value="Register" />
+      </form>
+      <div id="formFooter">
+        <p>Inserted links will not be shown until they are verifed by the site admin.
+        </p>
+      </div>
+</body>
+
 </html>
