@@ -39,9 +39,9 @@ app.get("/insert", (req, res) =>
 
 app.post("/newLink", (req, res) => {
   if(dbModule.saveToDB(createLink(req.body.name, req.body.link, req.body.desc))){
-    res.send(201);
+    res.sendStatus(201);
   }else{
-    res.send(500)
+    res.sendStatus(500)
   }
   
 });

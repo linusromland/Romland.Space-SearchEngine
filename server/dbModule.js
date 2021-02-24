@@ -50,5 +50,7 @@ exports.getDB = async (Model) => {
 exports.saveToDB = (input) => {
   input.save(() => {
     console.log(`Successfully saved ${input} to the database!`)
+    return true
   })
+  return false
 }
