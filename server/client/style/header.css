@@ -42,7 +42,7 @@ header {
     width: 140px;
     padding: 8px;
     margin: 8px;
-    background-color: #C06C84;
+    background-color: #34495E;
     font-size: 16px;
   }
 }
@@ -78,7 +78,7 @@ header {
     font-size: 80px;
     width: 100vw;
     height: 100px;
-    background-color: #C06C84;
+    background-color: #34495E;
   }
   #mobMenu {
     float: right;
@@ -89,7 +89,7 @@ header {
     width: 100px;
     height: 20px;
     margin: 10px;
-    background-color: #C06C84;
+    background-color: #34495E;
     border-radius: 10px;
     -webkit-transition: 0.2s;
     transition: 0.2s;

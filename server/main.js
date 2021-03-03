@@ -22,6 +22,10 @@ app.get("/", async (req, res) => {
   res.render("index", {});
 });
 
+app.get("/about", async (req, res) => {
+  res.render("about", {});
+});
+
 app.get("/getSearch", async (req, res) => {
   let url_parts = url.parse(req.url, true);
   let urlquery = url_parts.query;

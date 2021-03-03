@@ -1,5 +1,5 @@
 #searchArea {
-  background-color: #C06C84;
+  background-color: #1e9980;
   display: -ms-grid;
   display: grid;
   place-items: center;
@@ -34,7 +34,7 @@
 }
 
 .searchItem {
-  background-color: #6c5b7b;
+  background-color: #2C3E50;
   width: 100%;
   margin-top: 20px;
   padding: 10px;
