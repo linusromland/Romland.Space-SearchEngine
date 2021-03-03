@@ -1,7 +1,6 @@
 # Romland.Space
 Romland.Space Starpage Source Code. <br>
-Live preview is available on:
-> https://romland.space/
+Live preview is available on: https://romland.space/
 
 # What it is
 
