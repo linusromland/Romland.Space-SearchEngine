@@ -1,0 +1,43 @@
+#searchArea {
+  background-color: #1e9980;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 25%;
+  margin: auto;
+  border-radius: 10px;
+}
+
+#searchResult {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  width: 80%;
+}
+
+#searchbox {
+  color: black;
+  width: 80%;
+}
+
+.resultName {
+  color: #000000;
+  font-size: 25px;
+  padding-bottom: 5px;
+  text-align: left;
+}
+
+.resultDescription {
+  text-align: left;
+}
+
+.searchItem {
+  background-color: #2C3E50;
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 10px;
+}
+/*# sourceMappingURL=index.css.map */

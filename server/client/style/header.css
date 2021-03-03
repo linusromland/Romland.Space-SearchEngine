@@ -1,0 +1,112 @@
+@charset "UTF-8";
+* a {
+  text-decoration: none;
+}
+
+header {
+  clear: both;
+  height: 50px;
+  width: 100%;
+  background-color: black;
+  position: fixed;
+  z-index: 1;
+}
+
+#headerImg {
+  width: 50px;
+  margin-left: 10px;
+  display: block;
+  float: left;
+}
+
+.headerSpacer {
+  height: 100px;
+  width: 100%;
+}
+
+/*Desktop*/
+@media screen and (min-width: 1001px) {
+  #mobMenu {
+    display: none;
+  }
+  #navButtons {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+  }
+  #navButtons a {
+    border-radius: 5px;
+    width: 140px;
+    padding: 8px;
+    margin: 8px;
+    background-color: #34495E;
+    font-size: 16px;
+  }
+}
+
+/*Mobile*/
+@media screen and (max-width: 1000px) {
+  header {
+    height: 150px;
+  }
+  #headerImg {
+    width: 150px;
+  }
+  .headerSpacer {
+    height: 200px;
+  }
+  #navButtons {
+    margin: 0;
+    /*Rör ej, det kommer gå sönder*/
+    display: block;
+    visibility: collapse;
+    opacity: 0;
+    -webkit-transition: visibility 0.2s, opacity 0.2s;
+    transition: visibility 0.2s, opacity 0.2s;
+  }
+  .change ~ #navButtons {
+    display: inherit;
+    visibility: visible;
+    opacity: 1;
+  }
+  #navButtons a {
+    float: left;
+    padding: 8px;
+    font-size: 80px;
+    width: 100vw;
+    height: 100px;
+    background-color: #34495E;
+  }
+  #mobMenu {
+    float: right;
+    cursor: pointer;
+    margin: 20px;
+  }
+  .bar1, .bar2, .bar3 {
+    width: 100px;
+    height: 20px;
+    margin: 10px;
+    background-color: #34495E;
+    border-radius: 10px;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+  }
+  /* Rotate first bar */
+  .change .bar1 {
+    -webkit-transform: translate(0px, 30px) rotate(-45deg);
+            transform: translate(0px, 30px) rotate(-45deg);
+  }
+  /* Fade out the second bar */
+  .change .bar2 {
+    opacity: 0;
+  }
+  /* Rotate last bar */
+  .change .bar3 {
+    -webkit-transform: translate(0px, -30px) rotate(45deg);
+            transform: translate(0px, -30px) rotate(45deg);
+  }
+}
+/*# sourceMappingURL=header.css.map */
