@@ -47,10 +47,9 @@ exports.getDB = async (Model) => {
   return await Model.find({})
 }
 
-exports.saveToDB = (input) => {
-  input.save(() => {
+exports.saveToDB = async (input) => {
+  await input.save( async () => {
     console.log(`Successfully saved ${input} to the database!`)
-    return true
   })
-  return false
+
 }
