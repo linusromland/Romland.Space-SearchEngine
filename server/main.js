@@ -32,7 +32,7 @@ app.get("/getSearch", async (req, res) => {
   let search = urlquery.search ? urlquery.search : "";
 
   res.setHeader("Content-Type", "application/json");
-  let searchThing = await dbModule.getInDB(Link, search);
+  let searchThing = await dbModule.getInDBVerified(Link, search);
   res.send(searchThing);
 });
 

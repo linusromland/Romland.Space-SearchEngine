@@ -39,6 +39,13 @@ exports.getInDB = async (Model, search) => {
     $and: [{ $or: [{ "name": regex }, { "link": regex }] }, ] }).limit(10)
 }
 
+exports.getInDBVerified = async (Model, search) => {
+  const regex = new RegExp(escapeRegex(search), 'gi');
+  return await Model.find({ 
+    $and: [{ $or: [{ "name": regex }, { "link": regex }] }, { "verified": true }] }).limit(10)
+}
+
+
 function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
