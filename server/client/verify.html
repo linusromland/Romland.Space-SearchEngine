@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Verify links</title>
+		<style>
+			.Unverify {
+				background-color: rgb(56, 223, 56);
+			}
+			.Verify {
+				background-color: rgb(231, 81, 81);
+			}
+		</style>
+		<script>
+			async function getAll() {
+				let dataFetch = await fetch("/getAll");
+
+				let data = await dataFetch.json();
+				let mainDiv = document.getElementById("main");
+
+				mainDiv.innerHTML = "";
+
+				data.forEach((element) => {
+					let div = document.createElement("div");
+					let title = document.createElement("p");
+					title.innerText = element.name;
+					let desc = document.createElement("p");
+					desc.innerText = element.desc;
+					let link = document.createElement("a");
+					link.innerText = element.link;
+					link.href = element.link;
+					let approveBtn = document.createElement("button");
+					if (!element.verified) {
+						approveBtn.innerText = "Verify";
+						div.className = "Verify";
+					} else {
+						approveBtn.innerText = "Unverify";
+						div.className = "Unverify";
+					}
+					let removeBtn = document.createElement("button");
+					removeBtn.innerText = "Remove";
+
+					approveBtn.onclick = async function () {
+						var xhttp = new XMLHttpRequest();
+						xhttp.onreadystatechange = function () {
+							if (this.readyState == 4 && this.status == 200) {
+								getAll();
+							}
+						};
+						xhttp.open("POST", "/changeStatus", true);
+						xhttp.setRequestHeader(
+							"Content-type",
+							"application/x-www-form-urlencoded"
+						);
+						xhttp.send(
+							"id=" + element._id + "&verified=" + !element.verified
+						);
+					};
+
+					removeBtn.onclick = async function () {
+						if (
+							confirm(
+								"Are you sure you want to delete the link: " +
+									element.name +
+									"?"
+							)
+						) {
+							var xhttp = new XMLHttpRequest();
+							xhttp.onreadystatechange = function () {
+								if (this.readyState == 4 && this.status == 200) {
+									getAll();
+								}
+							};
+							xhttp.open("POST", "/removeLink", true);
+							xhttp.setRequestHeader(
+								"Content-type",
+								"application/x-www-form-urlencoded"
+							);
+							xhttp.send("id=" + element._id);
+						}
+					};
+
+					div.appendChild(title);
+					div.appendChild(desc);
+					div.appendChild(link);
+					div.appendChild(document.createElement("br"));
+					div.appendChild(document.createElement("br"));
+					div.appendChild(approveBtn);
+					div.appendChild(removeBtn);
+					mainDiv.appendChild(div);
+				});
+			}
+		</script>
+	</head>
+	<body onload="getAll()">
+		<div id="main"></div>
+	</body>
+</html>
