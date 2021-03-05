@@ -24,12 +24,6 @@ body {
   background-color: #34495E;
 }
 
-/* En global klass för att element som ska använda gradient */
-.gradient {
-  border-radius: 30px;
-  background-image: linear-gradient(-135deg, #c700ffff, #6475fe, #00e9ffff);
-}
-
 /* Global stil på titlar */
 .title {
   margin: auto;

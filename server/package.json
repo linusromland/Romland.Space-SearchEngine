@@ -4,7 +4,7 @@
   "description": "Frontend for Romland.Space",
   "main": "main.js",
   "scripts": {
-    "dev": "nodemon main.js",
+    "devStart": "nodemon main.js",
     "start": "forever main.js"
 
   },

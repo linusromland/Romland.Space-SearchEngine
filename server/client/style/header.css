@@ -38,12 +38,15 @@ header {
             justify-content: flex-end;
   }
   #navButtons a {
-    border-radius: 5px;
+    border-radius: 3px;
     width: 140px;
     padding: 8px;
     margin: 8px;
     background-color: #34495E;
     font-size: 16px;
+  }
+  #navButtons a:hover {
+    background-color: #525151;
   }
 }
 
@@ -67,11 +70,6 @@ header {
     -webkit-transition: visibility 0.2s, opacity 0.2s;
     transition: visibility 0.2s, opacity 0.2s;
   }
-  .change ~ #navButtons {
-    display: inherit;
-    visibility: visible;
-    opacity: 1;
-  }
   #navButtons a {
     float: left;
     padding: 8px;
@@ -80,12 +78,38 @@ header {
     height: 100px;
     background-color: #34495E;
   }
+  #navButtons a:hover {
+    background-color: #525151;
+  }
+  .change ~ #navButtons {
+    display: inherit;
+    visibility: visible;
+    opacity: 1;
+  }
   #mobMenu {
     float: right;
     cursor: pointer;
     margin: 20px;
   }
-  .bar1, .bar2, .bar3 {
+  .bar1 {
+    width: 100px;
+    height: 20px;
+    margin: 10px;
+    background-color: #34495E;
+    border-radius: 10px;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+  }
+  .bar2 {
+    width: 100px;
+    height: 20px;
+    margin: 10px;
+    background-color: #34495E;
+    border-radius: 10px;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+  }
+  .bar3 {
     width: 100px;
     height: 20px;
     margin: 10px;

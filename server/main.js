@@ -32,7 +32,7 @@ app.get("/getSearch", async (req, res) => {
   let search = urlquery.search ? urlquery.search : "";
 
   res.setHeader("Content-Type", "application/json");
-  let searchThing = await dbModule.getInDB(Link, search);
+  let searchThing = await dbModule.getInDBVerified(Link, search);
   res.send(searchThing);
 });
 
@@ -41,13 +41,14 @@ app.get("/insert", (req, res) =>
   res.sendFile(clientdir + "/insert.html")
 );
 
-app.post("/newLink", (req, res) => {
-  if(dbModule.saveToDB(createLink(req.body.name, req.body.link, req.body.desc))){
+app.post("/newLink", async (req, res) => {
+  try {
+    await dbModule.saveToDB(createLink(req.body.name, req.body.link, req.body.desc))
     res.sendStatus(201);
-  }else{
+  } catch (error) {
     res.sendStatus(500)
   }
-  
+
 });
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
