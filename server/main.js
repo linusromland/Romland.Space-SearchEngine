@@ -102,9 +102,14 @@ app.post("/verify", (req, res) => {
 app.get("/insert", (req, res) => res.sendFile(clientdir + "/insert.html"));
 
 app.post("/newLink", async (req, res) => {
+  let verified = false;
+  if (req.cookies.authstring && req.cookies.authstring == key) {
+    verified = true
+  } 
+
 	try {
 		await dbModule.saveToDB(
-			createLink(req.body.name, req.body.link, req.body.desc)
+			createLink(req.body.name, req.body.link, req.body.desc, verified)
 		);
 		res.sendStatus(201);
 	} catch (error) {
@@ -148,12 +153,12 @@ function connectToMongo(dbName, connectURL) {
 	}
 }
 
-function createLink(nameIN, linkIN, descIN) {
+function createLink(nameIN, linkIN, descIN, verifiedIN) {
 	let tmp = new Link({
 		name: nameIN,
 		link: linkIN,
 		desc: descIN,
-		verified: false,
+		verified: verifiedIN,
 	});
 	return tmp;
 }
