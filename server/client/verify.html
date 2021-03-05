@@ -4,22 +4,56 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Verify links</title>
+		<style>
+			.approved {
+				background-color: rgb(56, 223, 56);
+			}
+			.unapproved {
+				background-color: rgb(231, 81, 81);
+			}
+		</style>
 		<script>
 			async function getAll() {
 				let dataFetch = await fetch("/getAll");
 
 				let data = await dataFetch.json();
+				let mainDiv = document.getElementById("main");
 
-				document.getElementById("main").innerHTML = "";
+				mainDiv.innerHTML = "";
+
 				data.forEach((element) => {
-                    console.log(element)
-                });
-			}
+					let div = document.createElement("div");
+					let title = document.createElement("p");
+					title.innerText = element.name;
+					let desc = document.createElement("p");
+					desc.innerText = element.desc;
+					let link = document.createElement("a");
+					link.innerText = element.link;
+					link.href = element.link;
+					let approveBtn = document.createElement("button");
+					if (element.verified) {
+						approveBtn.innerText = "Approve";
+						div.className = "unapproved";
+					} else {
+						approveBtn.innerText = "Unapprove";
+						div.className = "approved";
+					}
+					let removeBtn = document.createElement("button");
+					removeBtn.innerText = "Remove";
 
-			function click() {
-				window.alert("Test");
+					div.appendChild(title);
+					div.appendChild(desc);
+					div.appendChild(link);
+					div.appendChild(document.createElement("br"));
+                    div.appendChild(document.createElement("br"));
+					div.appendChild(approveBtn);
+					div.appendChild(removeBtn);
+					mainDiv.appendChild(div);
+				});
 			}
 		</script>
 	</head>
-	<body id="main" onload="getAll()"></body>
+	<body onload="getAll()">
+		<div id="main"></div>
+	</body>
 </html>
