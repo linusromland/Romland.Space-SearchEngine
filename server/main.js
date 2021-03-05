@@ -48,9 +48,33 @@ app.get("/login", (req, res) => {
 
 app.get("/siteVerification", (req, res) => {
 	if (req.cookies.authstring && req.cookies.authstring == key) {
-    res.sendFile(clientdir + "/verify.html");
+		res.sendFile(clientdir + "/verify.html");
 	} else {
 		res.redirect("/login");
+	}
+});
+
+app.post("/changeStatus", async (req, res) => {
+	if (req.cookies.authstring && req.cookies.authstring == key) {
+		if (req.body.verified == "true") {
+			dbModule.updateStatus(Link, req.body.id, true);
+		} else if(req.body.verified == "false") {
+			dbModule.updateStatus(Link, req.body.id, false);
+		}else{
+      console.log(req.body.verified)
+    }
+		res.send("Done");
+	} else {
+		res.send("No auth");
+	}
+});
+
+app.post("/removeLink", async (req, res) => {
+	if (req.cookies.authstring && req.cookies.authstring == key) {
+		await dbModule.deleteLink(Link, req.body.id)
+		res.send("Done");
+	} else {
+		res.send("No auth");
 	}
 });
 
@@ -67,7 +91,7 @@ app.get("/getAll", async (req, res) => {
 app.post("/verify", (req, res) => {
 	if (req.body.authstring == key) {
 		console.log("Auth success");
-    res.clearCookie("authstring");
+		res.clearCookie("authstring");
 		res.cookie("authstring", req.body.authstring);
 		res.redirect("/siteVerification");
 	} else {
