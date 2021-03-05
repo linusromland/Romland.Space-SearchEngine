@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Add new Link</title>
+  <title>Login</title>
 
   <!--JQuery 3.5.1-->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -77,49 +77,20 @@
       margin: 2%;
     }
   </style>
-  <script>
-    function addLink() {
-      let link = document.getElementById("link").value;
-      let name = document.getElementById("name").value;
-      let desc = document.getElementById("desc").value;
-      let request = new XMLHttpRequest();
-      request.open("POST", "/newLink", true);
-      request.setRequestHeader(
-        "Content-type",
-        "application/x-www-form-urlencoded"
-      );
-      request.send(`link=${link}&name=${name}&desc=${desc}`);
-      request.onreadystatechange = function () {
-        if (request.status == 500) {
-          errorText.innerHTML = "Error occured! Link not added!";
-        } else if (request.status == 201) {
-          window.location = "/";
-        }
-      };
-
-    }
-  </script>
 </head>
 
 <body>
   <div class="wrapper fadeInDown">
     <div id="formContent">
       <div class="fadeIn first">
-        <h1>Add Link</h1>
+        <h1>Login</h1>
       </div>
-      <form onsubmit="addLink();return false;">
-        <input type="text" placeholder="URL" name="link" id="link" />
-        <br />
-        <input type="text" placeholder="Name" name="name" id="name" />
-        <br />
-        <input type="text" placeholder="Description" name="desc" id="desc" />
-        <p id="errorText">
-          <br />
-        </p>
-        <input type="submit" value="Add Link" />
+      <form method="POST" action="/verify">
+        <input type="password" placeholder="Authentication String" name="authstring" id="authstring" />
+        <input type="submit" value="Login" />
       </form>
       <div id="formFooter">
-        <p>Inserted links will not be shown until they are verifed by the site admin.
+        <p>Use your Authentication String to login!
         </p>
       </div>
 </body>
