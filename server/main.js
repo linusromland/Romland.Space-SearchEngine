@@ -8,12 +8,14 @@ const url = require("url");
 const app = express();
 const port = 3000;
 const clientdir = __dirname + "/client";
+const cookieParser = require("cookie-parser");
 let key;
 
 app.use(express.static(clientdir));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(cookieParser());
 app.set("view engine", "ejs");
 connectToMongo("SearchEngine", "mongodb://localhost:27017/");
 security();
@@ -36,12 +38,36 @@ app.get("/getSearch", async (req, res) => {
 	res.send(searchThing);
 });
 
-app.get("/login", (req, res) => res.sendFile(clientdir + "/login.html"));
+app.get("/login", (req, res) => {
+	if (req.cookies.authstring && req.cookies.authstring == key) {
+		res.redirect("/siteVerification");
+	} else {
+		res.sendFile(clientdir + "/login.html");
+	}
+});
+
+app.get("/siteVerification", (req, res) => {
+	if (req.cookies.authstring && req.cookies.authstring == key) {
+    res.sendFile(clientdir + "/verify.html");
+	} else {
+		res.redirect("/login");
+	}
+});
+
+app.get("/getAll", async (req, res) => {
+	if (req.cookies.authstring && req.cookies.authstring == key) {
+		let result = await dbModule.getAll(Link);
+
+		res.send(result);
+	} else {
+		res.send("No auth");
+	}
+});
 
 app.post("/verify", (req, res) => {
 	if (req.body.authstring == key) {
-		console.log("Auth succsess");
-		res.cookie("auth", req.body.authstring);
+		console.log("Auth success");
+		res.cookie("authstring", req.body.authstring);
 		res.sendFile(clientdir + "/verify.html");
 	} else {
 		res.redirect("/");

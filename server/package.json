@@ -6,7 +6,6 @@
   "scripts": {
     "devStart": "nodemon main.js",
     "start": "forever main.js"
-
   },
   "repository": {
     "type": "git",
@@ -19,6 +18,7 @@
   },
   "homepage": "https://github.com/linusromland/Romland.Space#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "ejs": "^3.1.6",
     "express": "^4.17.1",

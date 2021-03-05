@@ -39,6 +39,10 @@ exports.getInDB = async (Model, search) => {
     $and: [{ $or: [{ "name": regex }, { "link": regex }] }, ] }).limit(10)
 }
 
+exports.getAll = async (Model, search) => {
+  return await Model.find();
+}
+
 exports.getInDBVerified = async (Model, search) => {
   const regex = new RegExp(escapeRegex(search), 'gi');
   return await Model.find({ 
