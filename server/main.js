@@ -9,6 +9,7 @@ const app = express();
 const port = 3000;
 const clientdir = __dirname + "/client";
 const cookieParser = require("cookie-parser");
+const development = false;
 let key;
 
 app.use(express.static(clientdir));
@@ -128,7 +129,12 @@ function security() {
 			console.log("Created authentication string");
 		});
 	}
-	key = fs.readFileSync("./security/security.txt");
+	if(development){
+		key = fs.readFileSync("./security/security.txt");
+	}else{
+		key = fs.readFileSync(clientdir + "/security/security.txt");
+
+	}
 }
 
 function generateP() {
