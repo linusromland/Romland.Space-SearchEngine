@@ -9,7 +9,6 @@ const app = express();
 const port = 3000;
 const clientdir = __dirname + "/client";
 const cookieParser = require("cookie-parser");
-const development = false;
 let key;
 
 app.use(express.static(clientdir));
@@ -120,21 +119,22 @@ app.post("/newLink", async (req, res) => {
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
 
-function security() {
-	if (!fs.existsSync("security/security.txt")) {
-		console.log("File doesn't exist");
-
-		fs.writeFile("security/security.txt", generateP(), function (err) {
-			if (err) return console.log(err);
-			console.log("Created authentication string");
-		});
-	}
-	if(development){
-		key = fs.readFileSync("./security/security.txt");
-	}else{
-		key = fs.readFileSync(clientdir + "/security/security.txt");
-
-	}
+async function security() {
+	
+	await new Promise((resolve, reject) => {
+		if (!fs.existsSync("security/security.txt")) {
+			console.log("File doesn't exist");
+	
+			fs.writeFile("security/security.txt", generateP(), function (err) {
+				if (err) return console.log(err);
+				console.log("Created authentication string");
+				resolve()
+			});
+		}else{
+			reject()
+		}
+	  });
+	key = fs.readFileSync("./security/security.txt");
 }
 
 function generateP() {
