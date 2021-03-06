@@ -58,11 +58,27 @@ app.post("/changeStatus", async (req, res) => {
 	if (req.cookies.authstring && req.cookies.authstring == key) {
 		if (req.body.verified == "true") {
 			dbModule.updateStatus(Link, req.body.id, true);
-		} else if(req.body.verified == "false") {
+		} else if (req.body.verified == "false") {
 			dbModule.updateStatus(Link, req.body.id, false);
-		}else{
-      console.log(req.body.verified)
-    }
+		} else {
+			console.log(req.body.verified);
+		}
+		res.send("Done");
+	} else {
+		res.send("No auth");
+	}
+});
+
+app.post("/editLink", async (req, res) => {
+	if (req.cookies.authstring && req.cookies.authstring == key) {
+		dbModule.editLink(
+			Link,
+			req.body.id,
+			req.body.name,
+			req.body.desc,
+			req.body.link
+		);
+
 		res.send("Done");
 	} else {
 		res.send("No auth");
@@ -71,7 +87,7 @@ app.post("/changeStatus", async (req, res) => {
 
 app.post("/removeLink", async (req, res) => {
 	if (req.cookies.authstring && req.cookies.authstring == key) {
-		await dbModule.deleteLink(Link, req.body.id)
+		await dbModule.deleteLink(Link, req.body.id);
 		res.send("Done");
 	} else {
 		res.send("No auth");
@@ -92,7 +108,7 @@ app.post("/verify", (req, res) => {
 	if (req.body.authstring == key) {
 		console.log("Auth success");
 		res.clearCookie("authstring");
-		res.cookie("authstring", req.body.authstring, {maxAge: 3888000000});
+		res.cookie("authstring", req.body.authstring, { maxAge: 3888000000 });
 		res.redirect("/siteVerification");
 	} else {
 		res.redirect("/");
@@ -102,10 +118,10 @@ app.post("/verify", (req, res) => {
 app.get("/insert", (req, res) => res.sendFile(clientdir + "/insert.html"));
 
 app.post("/newLink", async (req, res) => {
-  let verified = false;
-  if (req.cookies.authstring && req.cookies.authstring == key) {
-    verified = true
-  } 
+	let verified = false;
+	if (req.cookies.authstring && req.cookies.authstring == key) {
+		verified = true;
+	}
 
 	try {
 		await dbModule.saveToDB(
@@ -120,20 +136,19 @@ app.post("/newLink", async (req, res) => {
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
 
 async function security() {
-	
 	await new Promise((resolve, reject) => {
 		if (!fs.existsSync("security/security.txt")) {
 			console.log("File doesn't exist");
-	
+
 			fs.writeFile("security/security.txt", generateP(), function (err) {
 				if (err) return console.log(err);
 				console.log("Created authentication string");
-				resolve()
+				resolve();
 			});
-		}else{
-			reject()
+		} else {
+			resolve();
 		}
-	  });
+	});
 	key = fs.readFileSync("./security/security.txt");
 }
 
