@@ -191,6 +191,7 @@ function createLink(nameIN, linkIN, descIN, verifiedIN) {
 		link: linkIN,
 		desc: descIN,
 		verified: verifiedIN,
+		hits: 0
 	});
 	return tmp;
 }
