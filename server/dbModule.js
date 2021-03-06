@@ -41,6 +41,10 @@ exports.updateStatus = async (Model, id, status) => {
 	await Model.updateOne({ _id: ObjectID(id) }, { verified: status });
 };
 
+exports.editLink = async (Model, id, name, desc, link) => {
+	await Model.updateOne({ _id: ObjectID(id) }, { name: name, link: link, desc: desc});
+};
+
 exports.deleteLink = async (Model, id) => {
 	await Model.deleteOne({ _id: ObjectID(id) });
 };
