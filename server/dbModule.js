@@ -41,8 +41,15 @@ exports.updateStatus = async (Model, id, status) => {
 	await Model.updateOne({ _id: ObjectID(id) }, { verified: status });
 };
 
+exports.updateHits = async (Model, link) => {
+	await Model.updateOne({ link: link }, { $inc: { hits: 1 } });
+};
+
 exports.editLink = async (Model, id, name, desc, link) => {
-	await Model.updateOne({ _id: ObjectID(id) }, { name: name, link: link, desc: desc});
+	await Model.updateOne(
+		{ _id: ObjectID(id) },
+		{ name: name, link: link, desc: desc }
+	);
 };
 
 exports.deleteLink = async (Model, id) => {
@@ -64,7 +71,9 @@ exports.getInDBVerified = async (Model, search) => {
 	const regex = new RegExp(escapeRegex(search), "gi");
 	return await Model.find({
 		$and: [{ $or: [{ name: regex }, { link: regex }] }, { verified: true }],
-	}).limit(10);
+	})
+		.sort({ hits: -1 })
+		.limit(10);
 };
 
 function escapeRegex(text) {
