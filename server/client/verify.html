@@ -20,7 +20,7 @@
 				let mainDiv = document.getElementById("main");
 
 				mainDiv.innerHTML = "";
-
+				let i = 1;
 				data.forEach((element) => {
 					let div = document.createElement("div");
 					let title = document.createElement("p");
@@ -88,7 +88,9 @@
 					div.appendChild(document.createElement("br"));
 					div.appendChild(approveBtn);
 					div.appendChild(removeBtn);
+					div.id = "container" + i
 					mainDiv.appendChild(div);
+					i++
 				});
 			}
 		</script>

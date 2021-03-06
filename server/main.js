@@ -146,7 +146,7 @@ async function security() {
 				resolve();
 			});
 		} else {
-			reject();
+			resolve();
 		}
 	});
 	key = fs.readFileSync("./security/security.txt");
