@@ -92,7 +92,7 @@ app.post("/verify", (req, res) => {
 	if (req.body.authstring == key) {
 		console.log("Auth success");
 		res.clearCookie("authstring");
-		res.cookie("authstring", req.body.authstring);
+		res.cookie("authstring", req.body.authstring, {maxAge: 3888000000});
 		res.redirect("/siteVerification");
 	} else {
 		res.redirect("/");
