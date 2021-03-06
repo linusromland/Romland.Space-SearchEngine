@@ -9,12 +9,18 @@ const app = express();
 const port = 3000;
 const clientdir = __dirname + "/client";
 const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 let key;
 
 app.use(express.static(clientdir));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(
+	bodyParser.urlencoded({
+		extended: true,
+	})
+);
 app.use(cookieParser());
 app.set("view engine", "ejs");
 connectToMongo("SearchEngine", "mongodb://localhost:27017/");
@@ -131,6 +137,11 @@ app.post("/newLink", async (req, res) => {
 	} catch (error) {
 		res.sendStatus(500);
 	}
+});
+
+app.get("/redirect", (req, res) => {
+	res.redirect(req.query.link);
+	dbModule.updateHits(Link, req.query.link);
 });
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));

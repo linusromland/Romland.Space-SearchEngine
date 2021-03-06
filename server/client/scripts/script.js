@@ -8,7 +8,7 @@ function changeSearch(searchResults) {
 	for (let index = 0; index < searchResults.length; index++) {
 		let add =
 			searchDiv.innerHTML +
-			'<a class="searchItem" href="' +
+			'<a class="searchItem" href="/redirect?link=' +
 			searchResults[index].link +
 			'"><p class="resultName">' +
 			searchResults[index].name +
