@@ -11,6 +11,13 @@
 			.Verify {
 				background-color: rgb(231, 81, 81);
 			}
+			input {
+				display: block;
+				margin: 10px;
+			}
+			.verifyItem {
+				margin: 10px;
+			}
 		</style>
 		<script>
 			async function getAll() {
@@ -20,7 +27,6 @@
 				let mainDiv = document.getElementById("main");
 
 				mainDiv.innerHTML = "";
-				let i = 1;
 				data.forEach((element) => {
 					let div = document.createElement("div");
 					let title = document.createElement("p");
@@ -33,13 +39,17 @@
 					let approveBtn = document.createElement("button");
 					if (!element.verified) {
 						approveBtn.innerText = "Verify";
-						div.className = "Verify";
+						div.classList.add("Verify");
 					} else {
 						approveBtn.innerText = "Unverify";
-						div.className = "Unverify";
+						div.classList.add("Unverify");
 					}
+					div.classList.add("verifyItem");
 					let removeBtn = document.createElement("button");
 					removeBtn.innerText = "Remove";
+
+					let editBtn = document.createElement("button");
+					editBtn.innerText = "Edit";
 
 					approveBtn.onclick = async function () {
 						var xhttp = new XMLHttpRequest();
@@ -81,17 +91,60 @@
 						}
 					};
 
+					editBtn.onclick = async function (i) {
+						let container = this.parentNode;
+						for (let i = 0; i <= 2; i++) {
+							replaceNodeWithInput(container.children[i]);
+						}
+						for (let i = 0; i <= 4; i++) {
+							container.children[3].remove();
+						}
+
+						let doneBtn = document.createElement("button");
+						doneBtn.innerText = "Done";
+						doneBtn.onclick = async function () {
+							var xhttp = new XMLHttpRequest();
+							xhttp.onreadystatechange = function () {
+								if (this.readyState == 4 && this.status == 200) {
+									getAll();
+								}
+							};
+							xhttp.open("POST", "/editLink", true);
+							xhttp.setRequestHeader(
+								"Content-type",
+								"application/x-www-form-urlencoded"
+							);
+							xhttp.send(
+								"id=" + element._id + "&name=" + container.children[0].value+ "&desc=" + container.children[1].value+ "&link=" + container.children[2].value
+							);
+						};
+
+						let cancelBtn = document.createElement("button");
+						cancelBtn.innerText = "Cancel";
+						cancelBtn.onclick = function () {
+							getAll();
+						};
+
+						container.appendChild(doneBtn);
+						container.appendChild(cancelBtn);
+					};
+
 					div.appendChild(title);
 					div.appendChild(desc);
 					div.appendChild(link);
 					div.appendChild(document.createElement("br"));
 					div.appendChild(document.createElement("br"));
 					div.appendChild(approveBtn);
+					div.appendChild(editBtn);
 					div.appendChild(removeBtn);
-					div.id = "container" + i
 					mainDiv.appendChild(div);
-					i++
 				});
+			}
+			function replaceNodeWithInput(node) {
+				let tmp = document.createElement("input");
+				tmp.type = "text";
+				tmp.value = node.innerText;
+				node.replaceWith(tmp);
 			}
 		</script>
 	</head>
