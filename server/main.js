@@ -142,7 +142,6 @@ app.post("/newLink", async (req, res) => {
 
 app.get("/redirect", (req, res) => {
 	res.redirect(req.query.link);
-
 	var parser = new UAParser();
 	var ua = req.headers["user-agent"];
 	var browserName = parser.setUA(ua).getBrowser().name;
