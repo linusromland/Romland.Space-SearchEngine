@@ -3,32 +3,38 @@
 /* Stil för alla sidor */
 
 /* Importera fonter från font-filer */
-@font-face{
-    font-family: comfortaa-regular;
-    src: url(../font/SourceSansPro-Regular.ttf);
+@font-face {
+	font-family: comfortaa-regular;
+	src: url(../font/SourceSansPro-Regular.ttf);
 }
-@font-face{
-    font-family: comfortaa-bold;
-    src: url(../font/SourceSansPro-Bold.ttf);
+@font-face {
+	font-family: comfortaa-bold;
+	src: url(../font/SourceSansPro-Bold.ttf);
 }
 
 /* Stil på alla element */
-*{
-    margin: 0;
-    font-family: comfortaa-bold;
-    color: white;
-    text-align: center;
+* {
+	margin: 0;
+	font-family: comfortaa-bold;
+	color: white;
+	text-align: center;
 }
 
 /* Universell bakgrundsfärg */
-body{
-    background-color: $colorBase;
+body {
+	background-color: $colorBase;
 }
 
 /* Global stil på titlar */
-.title{
-    margin: auto;
-    background-color: rgba(0,0,0,0.9);
-    border-radius: 10px;
-    padding: 10px;
+.title {
+	margin: auto;
+	background-color: rgba(0, 0, 0, 0.9);
+	border-radius: 10px;
+	padding: 10px;
+}
+
+iframe {
+	position: absolute;
+	left: 80px;
+	top: 200px;
 }
