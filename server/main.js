@@ -26,6 +26,11 @@ app.use(cookieParser());
 app.set("view engine", "ejs");
 connectToMongo("SearchEngine", "mongodb://localhost:27017/");
 security();
+let ipAdresses = [];
+
+setInterval(() => {
+	ipAdresses = [];
+}, 3600000);
 
 app.get("/", async (req, res) => {
 	res.render("index", {});
@@ -148,7 +153,37 @@ app.get("/redirect", (req, res) => {
 	let allowedBrowser = ["IE", "Firefox", "Chrome", "Safari", "Opera"];
 	for (let index = 0; index < allowedBrowser.length; index++) {
 		if (allowedBrowser[index] == browserName) {
-			dbModule.updateHits(Link, req.query.link);
+			let clientAdress = req.headers["x-real-ip"];
+			if (!clientAdress) {
+				clientAdress = req.connection.remoteAddress;
+			}
+			let noTurnsLeft = false;
+			let alreadyInList = false;
+			for (let i = 0; i < ipAdresses.length + 1; i++) {
+				if (ipAdresses[i]) {
+					if (ipAdresses[i].adress == clientAdress) {
+						alreadyInList = i;
+						if (ipAdresses[i].amount > 10) {
+							noTurnsLeft = true;
+							break;
+						}
+					}
+				}
+			}
+
+			if (!noTurnsLeft) {
+				dbModule.updateHits(Link, req.query.link);
+				if (alreadyInList) {
+					ipAdresses[alreadyInList].amount =
+						ipAdresses[alreadyInList].amount + 1;
+				} else {
+					ipAdresses.push({
+						adress: clientAdress,
+						amount: 1,
+					});
+				}
+			}
+
 			break;
 		}
 	}
