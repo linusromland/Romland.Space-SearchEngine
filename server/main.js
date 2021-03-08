@@ -10,6 +10,7 @@ const port = 3000;
 const clientdir = __dirname + "/client";
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const UAParser = require("ua-parser-js");
 let key;
 
 app.use(express.static(clientdir));
@@ -141,7 +142,17 @@ app.post("/newLink", async (req, res) => {
 
 app.get("/redirect", (req, res) => {
 	res.redirect(req.query.link);
-	dbModule.updateHits(Link, req.query.link);
+
+	var parser = new UAParser();
+	var ua = req.headers["user-agent"];
+	var browserName = parser.setUA(ua).getBrowser().name;
+	let allowedBrowser = ["IE", "Firefox", "Chrome", "Safari", "Opera"];
+	for (let index = 0; index < allowedBrowser.length; index++) {
+		if (allowedBrowser[index] == browserName) {
+			dbModule.updateHits(Link, req.query.link);
+			break;
+		}
+	}
 });
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
@@ -191,7 +202,7 @@ function createLink(nameIN, linkIN, descIN, verifiedIN) {
 		link: linkIN,
 		desc: descIN,
 		verified: verifiedIN,
-		hits: 0
+		hits: 0,
 	});
 	return tmp;
 }
