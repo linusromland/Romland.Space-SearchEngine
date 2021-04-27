@@ -1,4 +1,7 @@
 # Romland.Space
+
+[![CI](https://github.com/linusromland/Romland.Space-Page/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/linusromland/Romland.Space-Page/actions/workflows/main.yml)
+
 Romland.Space Starpage Source Code. <br>
 Live preview is available on: https://romland.space/
 
