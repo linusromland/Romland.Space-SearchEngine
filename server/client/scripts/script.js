@@ -8,13 +8,14 @@ function changeSearch(searchResults) {
 	for (let index = 0; index < searchResults.length; index++) {
 		let add =
 			searchDiv.innerHTML +
-			'<a class="searchItem" title="No of hits: ' + searchResults[index].hits + '" href="/redirect?link=' +
+			'<a class="card w-100" title="No of hits: ' + searchResults[index].hits + '" href="/redirect?link=' +
 			searchResults[index].link +
 			'"><p class="resultName">' +
 			searchResults[index].name +
 			'<br><p class="resultDescription">' +
 			searchResults[index].desc +
 			"</p></a>";
+			checkFavicon(searchResults[index].link)
 		searchDiv.innerHTML = add;
 	}
 }
@@ -32,3 +33,11 @@ async function getJSON(search) {
 setInterval(() => {
 	changeContent();
 }, 15000);
+
+function escapeRegExp(string) {
+	return string.replace(/\/\/([^\/,\s]+\.[^\/,\s]+?)(?=\/|,|\s|$|\?|#)/g, '\\$&'); // $& means the whole matched string
+}
+  
+function checkFavicon(input){
+	console.log(escapeRegExp(input) + "favicon.ico")
+}
