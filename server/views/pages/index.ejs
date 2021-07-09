@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@500&display=swap" rel="stylesheet">
+    <title>Search Engine - Romland.Space</title>
+
+    <script src="/scripts/script.js"></script>
+    
+    <link rel="icon" href="images/favicon.png">
+
+    <!-- Import of jQuery -->
+    <script src="/jquery/jquery.js"></script>
+
+    <!-- Import of Bootstrap -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+    <script src="/bootstrap/js/bootstrap.bundle.js"></script>
+</head>
+
+<body onload="changeContent()">
+    <%- include('../partials/navbar') %>
+
+    <div id="index" class="container center whitebg rounded">
+            <input id="searchbox" autofocus="autofocus" type="search" placeholder="Search" oninput='changeContent()' class="mx-auto display-1 fw-bolder"></input>
+            <div id="searchResult" class="mx-auto display-6"></div>
+
+        
+    </div>
+
+</body>
+
+</html>
