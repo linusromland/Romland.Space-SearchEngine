@@ -24,6 +24,7 @@ app.use(
 );
 app.use(cookieParser());
 app.set("view engine", "ejs");
+app.use("/bootstrap", express.static(__dirname + "/node_modules/bootstrap/dist/")); // redirect Bootstrap
 connectToMongo("SearchEngine", "mongodb://localhost:27017/");
 security();
 let ipAdresses = [];
